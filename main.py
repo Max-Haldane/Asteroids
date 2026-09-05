@@ -1,13 +1,13 @@
 import pygame
 import sys
-from constants import SCREEN_WIDTH
-from constants import SCREEN_HEIGHT
+from constants import *
 from logger import log_state
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from logger import log_event
 from shot import Shot
+from start_screen import StartScreen
 
 def main():
 
@@ -32,6 +32,10 @@ def main():
 
 	player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2)
 	asteroid_field = AsteroidField()
+
+	start_screen = StartScreen(screen)
+	start_screen.run_start_screen()
+
 
 	while True:
 		log_state()
