@@ -34,13 +34,35 @@ def main():
 	asteroid_field = AsteroidField()
 
 	start_screen = StartScreen(screen)
-	start_screen.run_start_screen()
+	not_started = True
 
-
+	while not_started == True:
+		log_state()
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				log_event("game_exit_without_starting")
+				return
+			elif event.type == pygame.KEYDOWN:
+				log_event("game_start")
+				for asteroid in asteroids:
+					asteroid.kill()
+				not_started = False
+		
+		screen.fill("black")
+		asteroid_field.update(dt)
+		for asteroid in asteroids:
+			asteroid.update(dt)
+			start_screen.draw()
+		for asteroid in asteroids:
+			asteroid.draw(screen)
+		pygame.display.flip()
+		dt = clock.tick(60) / 1000
+				
 	while True:
 		log_state()
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
+				log_event("game_exit")
 				return
 		screen.fill("black")
 		for obj in updatable:

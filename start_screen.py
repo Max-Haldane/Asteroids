@@ -14,19 +14,3 @@ class StartScreen:
     def draw(self):
         self.screen.blit(self.title_text, self.title_rect)
         self.screen.blit(self.start_text, self.start_rect)
-    
-    def run_start_screen(self):
-        waiting = True
-        while waiting == True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    log_event("game_exit_without_starting")
-                    pygame.quit()
-                    exit()
-                elif event.type == pygame.KEYDOWN:
-                    log_event("game_start")
-                    waiting = False
-                    return
-                else:
-                    self.draw()
-            pygame.display.flip()
