@@ -5,9 +5,10 @@ from constants import *
 class StartScreen:
     def __init__(self, screen):
         self.screen = screen
-        self.font = pygame.font.Font(None, 48)
-        self.title_text = self.font.render("Asteroids", True, (255, 255, 255))
-        self.start_text = self.font.render("Press ANY KEY to Start", True, (255, 255, 255))
+        self.title_font = pygame.font.Font(None, 100)
+        self.start_text_font = pygame.font.Font(None, 48)
+        self.title_text = self.title_font.render("Asteroids", True, "white")
+        self.start_text = self.start_text_font.render("Press ANY KEY to Start", True, "white")
         self.title_rect = self.title_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50))
         self.start_rect = self.start_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50))
     
