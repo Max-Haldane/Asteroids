@@ -10,6 +10,7 @@ from shot import Shot
 from start_screen import StartScreen
 from end_screen import EndScreen
 from game_score import GameScore
+from process_high_scores import ProcessHighScores
 
 def main():
 
@@ -20,7 +21,6 @@ def main():
 	pygame.init()
 	screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 	clock = pygame.time.Clock()
-	time = pygame.time.get_ticks()
 	dt = 0.0
 
 	updatable = pygame.sprite.Group()
@@ -36,6 +36,7 @@ def main():
 	player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2)
 	asteroid_field = AsteroidField()
 	game_score = GameScore(screen)
+	process_high_scores = ProcessHighScores([]) #placeholder
 
 	start_screen = StartScreen(screen)
 	end_screen = EndScreen(screen)
@@ -55,7 +56,7 @@ def main():
 				player.position = pygame.Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 				player.rotation = 0
 				player.cooldown_timer = 0
-				game_score.update(-game_score.score)
+				game_score.update(- game_score.score)
 				started = True
 			elif event.type == pygame.KEYDOWN and started == True and game_over == True:
 				log_event("game_restart")
@@ -80,6 +81,7 @@ def main():
 				if player.collides_with(asteroid):
 					log_event("player_hit")
 					print("Game Over!")
+					process_high_scores.update(game_score)
 					game_over = True
 				else:
 					for shot in shots:
@@ -95,12 +97,14 @@ def main():
 							asteroid.split()
 			for obj in drawable:
 				obj.draw(screen)
-				game_score.draw()
+				game_score.draw(game_over)
 		else:
 			asteroid_field.update(dt)
 			for asteroid in asteroids:
 				asteroid.update(dt)
 			end_screen.draw()
+			game_score.draw(game_over)
+
 			for asteroid in asteroids:
 				asteroid.draw(screen)
 		pygame.display.flip()
