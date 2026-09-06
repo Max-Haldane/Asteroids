@@ -55,6 +55,7 @@ def main():
 				player.position = pygame.Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 				player.rotation = 0
 				player.cooldown_timer = 0
+				game_score.update(-game_score.score)
 				started = True
 			elif event.type == pygame.KEYDOWN and started == True and game_over == True:
 				log_event("game_restart")
