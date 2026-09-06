@@ -1,5 +1,5 @@
 import pygame
-import sys
+import math
 from constants import *
 from logger import log_state
 from player import Player
@@ -9,6 +9,7 @@ from logger import log_event
 from shot import Shot
 from start_screen import StartScreen
 from end_screen import EndScreen
+from game_score import GameScore
 
 def main():
 
@@ -19,6 +20,7 @@ def main():
 	pygame.init()
 	screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 	clock = pygame.time.Clock()
+	time = pygame.time.get_ticks()
 	dt = 0.0
 
 	updatable = pygame.sprite.Group()
@@ -33,6 +35,7 @@ def main():
 
 	player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2)
 	asteroid_field = AsteroidField()
+	game_score = GameScore(screen)
 
 	start_screen = StartScreen(screen)
 	end_screen = EndScreen(screen)
@@ -82,9 +85,16 @@ def main():
 						if shot.collides_with(asteroid):
 							log_event("asteroid_shot")
 							shot.kill()
+							if asteroid.radius == 20:
+								game_score.update(100)
+							elif asteroid.radius == 40:
+								game_score.update(50)
+							else:
+								game_score.update(20)
 							asteroid.split()
 			for obj in drawable:
 				obj.draw(screen)
+				game_score.draw()
 		else:
 			asteroid_field.update(dt)
 			for asteroid in asteroids:
