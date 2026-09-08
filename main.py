@@ -36,7 +36,7 @@ def main():
 	player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2)
 	asteroid_field = AsteroidField()
 	game_score = GameScore(screen)
-	process_high_scores = ProcessHighScores([]) #placeholder
+	process_high_scores = ProcessHighScores('high_scores.txt')
 
 	start_screen = StartScreen(screen)
 	end_screen = EndScreen(screen)
