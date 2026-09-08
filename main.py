@@ -36,7 +36,7 @@ def main():
 	player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2)
 	asteroid_field = AsteroidField()
 	game_score = GameScore(screen)
-	process_high_scores = ProcessHighScores('high_scores.txt')
+	process_high_scores = ProcessHighScores('high_scores.txt', screen)
 
 	start_screen = StartScreen(screen)
 	end_screen = EndScreen(screen)
@@ -81,7 +81,7 @@ def main():
 				if player.collides_with(asteroid):
 					log_event("player_hit")
 					print("Game Over!")
-					process_high_scores.update(game_score)
+					process_high_scores.write(game_score)
 					game_over = True
 				else:
 					for shot in shots:
@@ -104,6 +104,7 @@ def main():
 				asteroid.update(dt)
 			end_screen.draw()
 			game_score.draw(game_over)
+			process_high_scores.draw(game_score)
 
 			for asteroid in asteroids:
 				asteroid.draw(screen)
