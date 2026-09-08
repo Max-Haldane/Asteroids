@@ -104,7 +104,7 @@ def main():
 				asteroid.update(dt)
 			end_screen.draw()
 			game_score.draw(game_over)
-			process_high_scores.draw(game_score)
+			process_high_scores.draw()
 
 			for asteroid in asteroids:
 				asteroid.draw(screen)
