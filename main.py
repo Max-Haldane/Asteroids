@@ -48,9 +48,11 @@ def main():
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
 				log_event("game_exit")
+				print("Game Exit")
 				return
 			elif event.type == pygame.KEYDOWN and started == False and game_over == False:
 				log_event("game_start")
+				print("Game Start")
 				for asteroid in asteroids:
 					asteroid.kill()
 				player.position = pygame.Vector2(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
@@ -60,6 +62,7 @@ def main():
 				started = True
 			elif event.type == pygame.KEYDOWN and started == True and game_over == True:
 				log_event("game_restart")
+				print("Game Start")
 				for asteroid in asteroids:
 					asteroid.kill()
 				game_over = False
